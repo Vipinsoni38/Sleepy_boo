@@ -5,15 +5,12 @@ using UnityEngine;
 
 public class CheckpointScript : MonoBehaviour
 {
+    AudioManager audioManager;
     bool IscheckpointMarked = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-    
     void OnTriggerEnter2D(Collider2D collisionInfo){
         if(collisionInfo.gameObject.tag.Equals("Player") && !IscheckpointMarked){            
+            audioManager = FindObjectOfType<AudioManager>();
+            audioManager.PlaySound("Checkpoint");
             colorIt();
             PlayerPrefs.SetFloat("CheckPointPos", this.transform.position.x + 1);
         }

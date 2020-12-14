@@ -21,13 +21,12 @@ public class SkeletonScript : MonoBehaviour
     {        
         if((Player.transform.position - transform.position).magnitude < 12){            
             Enemy.velocity = (Player.transform.position - transform.position).normalized * 4;
-            if((Player.transform.position - transform.position).magnitude < 6){
+            if((Player.transform.position - transform.position).magnitude < 5){
                 playerScript.GetLocationToThrowCards((Vector2)transform.position);
             }            
         }
     }
-
-    void OnTriggerEnter2D(Collider2D collisionInfo){
+     void OnCollisionEnter2D(Collision2D collisionInfo){
         if(collisionInfo.gameObject.tag.Equals("NinjaCard")){
             Destroy(collisionInfo.gameObject);
             GameObject g = Instantiate(Blast);
@@ -35,5 +34,5 @@ public class SkeletonScript : MonoBehaviour
             Destroy(g, 1); 
             Destroy(this.gameObject);            
         }
-    }
+    }    
 }

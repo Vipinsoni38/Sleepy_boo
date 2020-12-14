@@ -11,6 +11,7 @@ public class PlayerScript : MonoBehaviour
     Rigidbody2D Player;
     float lastTime = 0;
     public SpriteRenderer Power; 
+    AudioManager audioManager;
     bool isPaused = true, gameover = false, inDash = false, isInvincible = false, triggerInvincibleOff = false,
          bufferingTimeForCards = false, isWon = false;
     SceneHolder sceneHolder;
@@ -27,6 +28,7 @@ public class PlayerScript : MonoBehaviour
         CheckPointPos = PlayerPrefs.GetFloat("CheckPointPos", 0);        
         Player = GetComponent<Rigidbody2D>();
         PowerColor = Power.color;
+        audioManager = FindObjectOfType<AudioManager>();
         CardValueHolderAnimator = CardsValueHolder.GetComponent<Animator>();
         sceneHolder = FindObjectOfType<SceneHolder>();
         cameraSelfScript = FindObjectOfType<CameraSelfScript>();
@@ -84,6 +86,7 @@ public class PlayerScript : MonoBehaviour
         if(gameover){
             return;
         }
+        audioManager.PlaySound("ouch");
         gameover = true;
         sceneHolder.Gameover();
     }
@@ -93,11 +96,12 @@ public class PlayerScript : MonoBehaviour
                 return;
             }
             if(isInvincible){
+                audioManager.PlaySound("ouch");
                 triggerInvincibleOff = true;                
                 //this.gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
                 Invoke("InvincibleOff", 2);
                 return;
-            }
+            }            
             GameOver();
         }
     }    
@@ -114,6 +118,7 @@ public class PlayerScript : MonoBehaviour
             this.transform.Find("Power").gameObject.SetActive(true);
             PowerColor.a = 1;
             Power.color = PowerColor;
+            audioManager.PlaySound("pillow");
         }
         if(collisionInfo.gameObject.tag.Equals("NinjaCards")){
             Destroy(collisionInfo.gameObject);
@@ -130,6 +135,7 @@ public class PlayerScript : MonoBehaviour
             sceneHolder.Won();
             Player.transform.parent = collisionInfo.transform.Find("Blanket");
             Player.transform.localPosition = new Vector2(-0.4f, 2.3f);
+            audioManager.PlaySound("vic");
         }
     }
     public void GetLocationToThrowCards(Vector2 pos){
@@ -145,6 +151,7 @@ public class PlayerScript : MonoBehaviour
     }
     void throwCard(Vector2 pos){
         ninjaCard--;
+        audioManager.PlaySound("fire");
         CardsText.text = "X "+ninjaCard;
         ShowNinjaCardsValue();
         GameObject g = Instantiate(ninjaCardObj);

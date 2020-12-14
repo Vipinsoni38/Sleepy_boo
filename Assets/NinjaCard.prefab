@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5164250253577038876}
   - component: {fileID: 5164250253577038879}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cutter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 5164250253910962429}
   - component: {fileID: 5164250253910962426}
   - component: {fileID: 5164250253910962427}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: NinjaCard
   m_TagString: NinjaCard
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

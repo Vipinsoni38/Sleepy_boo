@@ -9,12 +9,14 @@ public class SceneHolder : MonoBehaviour
     public GameObject Menu, PausedMenu, GameRestart, PauseButton, GameWon;
     bool isPaused = false, gameStarted = false, gameover = false;
     int lifeLeft = 0;
+    AudioManager audioManager;
     // Start is called before the first frame update
     PlayerScript playerScript;
     void Start()
     {
         Time.timeScale = 0;
         ShowMenu(0);
+        audioManager = FindObjectOfType<AudioManager>();
         playerScript = FindObjectOfType<PlayerScript>();
         lifeLeft = PlayerPrefs.GetInt("lifeLeft", 3);
     }
@@ -37,6 +39,7 @@ public class SceneHolder : MonoBehaviour
     }
 
     public void Play(){
+        audioManager.PlaySound("click");
         PauseButton.SetActive(true);
         Time.timeScale = 1;
         ShowMenu(-1);        
@@ -45,6 +48,7 @@ public class SceneHolder : MonoBehaviour
         playerScript.IsGamePaused(false);
     }
     public void Pause(){
+        audioManager.PlaySound("click");
         PauseButton.SetActive(false);
         Time.timeScale = 0;
         isPaused = true;
@@ -62,11 +66,13 @@ public class SceneHolder : MonoBehaviour
     }
 
     public void Restart(){      
+        audioManager.PlaySound("click");
         PlayerPrefs.SetInt("lifeLeft", 3);
         PlayerPrefs.SetFloat("CheckPointPos", 0);         
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void RestartFromCheckPoint(){      
+        audioManager.PlaySound("click");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     void ShowMenu(int a){
